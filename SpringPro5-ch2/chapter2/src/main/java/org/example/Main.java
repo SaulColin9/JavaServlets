@@ -1,16 +1,13 @@
 package org.example;
 
-import org.example.Factory.MessageSupportFactory;
-import org.example.MessageImpl.HelloWorldMessageProvider;
-import org.example.MessageImpl.StandardOutMessageRenderer;
-import org.example.MessageInterface.MessageProvider;
 import org.example.MessageInterface.MessageRenderer;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
-        MessageProvider mp = MessageSupportFactory.getInstance().getMessageProvider();
-        MessageRenderer mr = MessageSupportFactory.getInstance().getMessageRenderer();
-        mr.setMessageProvider(mp);
+        ApplicationContext context = new ClassPathXmlApplicationContext("app-context.xml");
+        MessageRenderer mr = context.getBean("renderer", MessageRenderer.class);
         mr.render();
     }
 }
